@@ -39,58 +39,5 @@
   	</div>
   </div>
 </body>
-<script>
-	const mediaplayer = document.getElementsByClassName('mediaplayer')[0];
-	const player = mediaplayer.getElementsByTagName('audio')[0];
-  const titleBox = mediaplayer.getElementsByClassName('title')[0];
-	const buttons = mediaplayer.getElementsByClassName('buttons')[0];
-  const playstateButton = buttons.getElementsByClassName('playstate')[0];
-  const stopButton = buttons.getElementsByClassName('stop')[0];
-  const nextButton = buttons.getElementsByClassName('next')[0];
-  const backButton = buttons.getElementsByClassName('back')[0];
-  const tracks = ['mp3/LA Chill Tour.mp3', 'mp3/LA Fusion Jam.mp3', 'mp3/This is it band.mp3'];
-
-	stopButton.onclick = function() {
-		player.pause();
-		player.currentTime = 0;
-		mediaplayer.classList.remove('play');
-	}
-
-	playstateButton.onclick = function() {
-		if (!(mediaplayer.classList.contains('play'))) {
-			player.play();
-			mediaplayer.classList.add('play');
-		} else {
-			player.pause();
-			mediaplayer.classList.remove('play');
-		}
-	}
-
-  let i = 0; //index of track title in the 'tracks' array
-	nextButton.onclick = function() {
-    if (i === tracks.length - 1) {
-        i = -1;
-    }
-    player.src = tracks[++i];
-		player.play();
-		mediaplayer.classList.add('play');
-		//cutting the track title out of the track address string
-		titleBox.title = tracks[i].slice().substring(tracks[i].indexOf('/') + 1, tracks[i].indexOf('.'));
-	}
-
-	backButton.onclick = function() {
-		if (i === 0) {
-			i = tracks.length;
-		}
-		player.src = tracks[--i];
-		player.play();
-		mediaplayer.classList.add('play');
-		//cutting the track title out of the track address string
-		titleBox.title = tracks[i].slice().substring(tracks[i].indexOf('/') + 1, tracks[i].indexOf('.'));
-  }
-
-	player.onended = function() {
-		mediaplayer.classList.remove('play');
-	} 
-</script>
+<script src="js/main.js"></script>
 </html>
