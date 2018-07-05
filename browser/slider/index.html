@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -6,12 +7,12 @@
   <meta name="viewport" content="width=1280">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Слайдер</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <section class="product-item">
     <div class="product-gallery">
-      <img src="i/spinner.gif" alt="" id="slider">
+      <img src="https://netology-code.github.io/hj-homeworks/browser/slider/i/spinner.gif" alt="" id="slider">
     </div>
     <div class="product-data">
       <p class="product-firm">Nike</p>
@@ -31,5 +32,18 @@
       </div>
     </div>
   </section>
+  <script>
+    const img = document.getElementById('slider');
+    const urls = ["https://netology-code.github.io/hj-homeworks/browser/slider/i/airmax-jump.png", 'https://netology-code.github.io/hj-homeworks/browser/slider/i/airmax-on-foot.png', 'https://netology-code.github.io/hj-homeworks/browser/slider/i/airmax-playground.png', 'https://netology-code.github.io/hj-homeworks/browser/slider/i/airmax-top-view.png', 'https://netology-code.github.io/hj-homeworks/browser/slider/i/airmax.png'];
+    let i = 0;
+    let slider = setInterval(function() {
+      if (urls.length !== 0 && i < urls.length) { 
+        img.src = urls[i++];
+      }
+      if (i >= urls.length) {
+        i = 0;
+      }
+    }, 1000);
+  </script>
 </body>
 </html>
