@@ -21,7 +21,7 @@ function setData(data) {
     }
   }
 
-
+ 
   document.getElementsByClassName('info')[0].innerHTML = data.title;
   let daysHtml = '';
   for (let i = 0; i < data.consolidated_weather.length; i++) {
