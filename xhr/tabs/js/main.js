@@ -4,7 +4,7 @@ const preloader = document.getElementById('preloader');
 const xhr = new XMLHttpRequest();
 
 xhr.addEventListener('load', onLoad);
-xhr.addEventListener('loadstart', () => preloader.classList.remove('hidden'));
+xhr.addEventListener('progress', () => preloader.classList.remove('hidden'));
 xhr.addEventListener('loadend', () => preloader.classList.add('hidden'));
 xhr.addEventListener('error', () => console.log(xhr.status));
 
