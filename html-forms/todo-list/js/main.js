@@ -8,8 +8,10 @@ tasks.forEach(task => task.addEventListener('click', updateCounter));
 
 function updateCounter() { 
   let done = Array.from(tasks).filter(task => task.checked);
-  if (done.length === tasks.length) { 
+  if (done.length === tasks.length) {
     fieldset.classList.add('complete');
+  } else { 
+    fieldset.classList.remove('complete');
   }
-  output.value = `${done.length} of ${tasks.length}`;
+  output.value = `${done.length} из ${tasks.length}`;
 }
