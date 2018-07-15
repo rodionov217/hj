@@ -11,7 +11,7 @@ function createList(contacts) {
   contacts.forEach(contact => {
     let li = `<li><strong>${contact.name}</strong></li>`;
     result.push(li);
-  });
+  }); 
   return result.join(' ');
 }
 
