@@ -4,19 +4,19 @@ const tabsnav = container.querySelector('ul.tabs-nav');
 const tabContent = container.querySelector('.tabs-content');
 
 Array.from(tabContent.children).forEach(article => { 
-  let title = article.dataset.tabTitle;
-  let icon = article.dataset.tabIcon;
-  let clone = tabsnav.firstElementChild.cloneNode(true);
+  const title = article.dataset.tabTitle;
+  const icon = article.dataset.tabIcon;
+  const clone = tabsnav.firstElementChild.cloneNode(true);
   tabsnav.appendChild(clone);
-  let tab = tabsnav.lastElementChild;
+  const tab = tabsnav.lastElementChild;
   tab.firstElementChild.textContent = title;
   tab.firstElementChild.classList.add(icon);
 })
 
 tabsnav.removeChild(tabsnav.firstElementChild);
 
-let tabs = Array.from(container.querySelectorAll('a.fa'));
-tabs[0].classList.add('ui-tabs-active');
+const tabs = Array.from(container.querySelectorAll('a.fa'));
+
 tabs.forEach(a => a.addEventListener('click', showArticle));
 
 function showArticle(event) { 
@@ -30,3 +30,5 @@ function showArticle(event) {
     }
   })
 }
+
+document.addEventListener('DOMContentLoaded', () => tabs[0].classList.add('ui-tabs-active'));
