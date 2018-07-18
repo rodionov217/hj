@@ -15,7 +15,7 @@ function createRow(data, i) {
       return row;
     }, document.createElement('tr'));
 }
-
+ 
 function createRows(data) {
   return data
     .map((item, i) => {
@@ -27,7 +27,7 @@ function createRows(data) {
       fragment.appendChild(row);
       return fragment;
     }, document.createDocumentFragment());
-}
+} 
 
 function showRows(table, data) {
   const body = table.querySelector('tbody');

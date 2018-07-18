@@ -1,17 +1,18 @@
 'use strict';
 
 function toggleMenu(event) {
-  if (this.classList.contains('show')) {
-    this.classList.remove('show');
-    this.classList.add('hide');
+  if (event.target.classList.contains('show')) {
+    event.currentTarget.classList.remove('show');
+    event.currentTarget.classList.add('hide');
   } else {
-    this.classList.add('show');
-    this.classList.remove('hide');
+    event.currentTarget.classList.add('show');
+    event.currentTarget.classList.remove('hide');
   }
 }
 
 function openLink(event) {
-  console.log(this.textContent);
+  event.preventDefault();
+  console.log(event.target.textContent);
 }
 
 function init(node) {
@@ -22,7 +23,7 @@ function initLink(node) {
   if (node.dataset.toggle) {
     return;
   }
-  node.addEventListener('click', openLink);
+  node.addEventListener('click', openLink, true);
 }
 
 Array
