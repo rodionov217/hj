@@ -18,7 +18,7 @@ const items = [
   { title: 'Парка', pic: './i/sq-sample17.jpg', price: 1790 },
   { title: 'Рубашка', pic: './i/sq-sample21.jpg', price: 1490 },
   { title: 'Джинсы', pic: './i/sq-sample22.jpg', price: 3790 }
-];
+]; 
 let shownItems = 0;
 let inCart = 0;
 
