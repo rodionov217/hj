@@ -5,6 +5,9 @@ const decrement = document.getElementById('decrement');
 const reset = document.getElementById('reset');
 
 function updateCounter() { 
+  if (!localStorage.counter) { 
+    localStorage.counter = 0;
+  }
   counter.textContent = localStorage.counter;
 }
 
