@@ -12,6 +12,9 @@ Array.from(tabLinks).forEach(link => link.addEventListener('click', showTab));
 
 function showTab(event) { 
 	event.preventDefault();
+	if (event.currentTarget.classList.contains('active')) { 
+		return;
+	}
 	Array.from(tabLinks).forEach(link => link.classList.remove('active'));
 	event.currentTarget.classList.add('active');
 	xhr.open('GET', event.currentTarget.getAttribute('href'), true);
@@ -24,7 +27,7 @@ function onLoad() {
 	} else {
 		content.innerHTML = xhr.responseText;
 	}
-}
+} 
 
 document.addEventListener('DOMContentLoaded', openEmail);
 function openEmail() { 
