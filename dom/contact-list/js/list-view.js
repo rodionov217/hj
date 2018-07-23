@@ -5,24 +5,19 @@ function loadContacts() {
 }
 
 const contacts = JSON.parse(loadContacts());
-
-function createList(contacts) {
-  let result = [];
-  contacts.forEach(contact => {
-    let li = `<li><strong>${contact.name}</strong></li>`;
-    result.push(li);
-  }); 
-  return result.join(' ');
-}
-
 const list = document.getElementsByClassName('contacts-list')[0];
 list.innerHTML = createList(contacts);
 
-const items = Array.from(document.querySelectorAll('ul.contacts-list > li'));
-items.forEach((item, i) => { 
-  item.dataset.email = contacts[i].email;
-  item.dataset.phone = contacts[i].phone;
-})
+function createList(contacts) {
+  return contacts.reduce((prev, cur, i) => {
+    if (i === 1) {
+      prev = `<li data-email="${prev.email}" data-phone="${prev.phone}"><strong>${prev.name}</strong></li>`;
+    }
+    return prev + `<li data-email="${cur.email}" data-phone="${cur.phone}"><strong>${cur.name}</strong></li>`;
+  });
+}
+
+
 
 function contactClick(event) {
   let target = null;
