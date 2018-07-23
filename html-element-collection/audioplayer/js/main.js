@@ -24,17 +24,16 @@ playstateButton.onclick = function() {
 	}
 }
 
-let i = 0; //index of track title in the 'tracks' array
+let i = 0;
 nextButton.onclick = function() {
 	if (i === tracks.length - 1) {
 			i = -1;
 	}
 	player.src = tracks[++i];
-	
-	player.play();
-	mediaplayer.classList.add('play');
-	//cutting the track title out of the track address string
-	titleBox.title = tracks[i].slice().substring(tracks[i].indexOf('/') + 1, tracks[i].indexOf('.'));
+	cutTitle(tracks[i]);
+	if (mediaplayer.classList.contains('play')) {
+		player.play();
+	}
 }
 
 backButton.onclick = function() {
@@ -42,12 +41,16 @@ backButton.onclick = function() {
 		i = tracks.length;
 	}
 	player.src = tracks[--i];
-	player.play();
-	mediaplayer.classList.add('play');
-	//cutting the track title out of the track address string
-	titleBox.title = tracks[i].slice().substring(tracks[i].indexOf('/') + 1, tracks[i].indexOf('.'));
+	cutTitle(tracks[i]);
+	if (mediaplayer.classList.contains('play')) {
+		player.play();
+	}
 }
 
 player.onended = function() {
 	mediaplayer.classList.remove('play');
 } 
+
+function cutTitle(track) { 
+	titleBox.title = track.slice().substring(track.indexOf('/') + 1, track.indexOf('.'));
+}

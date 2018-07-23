@@ -1,9 +1,5 @@
 'use strict';
-const menu = document.getElementsByClassName('wrapper-dropdown');
-menu[0].onclick = function () {
-	if (this.classList.contains('active')) {
-		this.classList.remove('active');
-	} else { 
-		this.classList.add('active');
-	}
+const menu = document.getElementsByClassName('wrapper-dropdown')[0];
+menu.onclick = function () {
+	this.classList.toggle('active');
 }
