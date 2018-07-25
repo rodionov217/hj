@@ -1,7 +1,7 @@
 'use strict';
 
 function handleTableClick(event) {
-  if (event.target.parentElement !== table.firstElementChild.firstElementChild) {
+  if (!(event.target.classList.contains('prop__name'))) {
     return;
   }
   table.dataset.sortBy = event.target.dataset.propName;

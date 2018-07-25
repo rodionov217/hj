@@ -8,11 +8,13 @@ function toggleMenu(event) {
     event.currentTarget.classList.add('show');
     event.currentTarget.classList.remove('hide');
   }
+  
 }
 
 function openLink(event) {
   event.preventDefault();
   console.log(event.target.textContent);
+  event.stopPropagation();
 }
 
 function init(node) {
