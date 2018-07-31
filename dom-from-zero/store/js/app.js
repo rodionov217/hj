@@ -8,7 +8,7 @@ const item = {
   price: 399,
   currency: '£'
 };
-
+ 
 const content = e(
   'div',
   { 'class': 'main-content' },
@@ -35,5 +35,5 @@ const content = e(
   )
 );
 
-const wrapper = document.getElementById('root');
-wrapper.appendChild(createElement(content));
+  const wrapper = document.getElementById('root');
+  wrapper.appendChild(createElement(content));
