@@ -3,7 +3,7 @@ var canvas,
   dragging = false,
   dragStartLocation,
   snapshot;
-
+ 
 window.editor = {
   events: {},
   addEventListener(event, callback) {

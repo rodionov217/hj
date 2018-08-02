@@ -2,7 +2,7 @@
 
 function showComments(list) {
   const commentsContainer = document.querySelector('.comments');
-  const comments = list.map(createNode);
+  const comments = list.map(createComment);
   const fragment = comments.reduce((fragment, current) => { 
     fragment.appendChild(current);
     return fragment;
@@ -10,7 +10,7 @@ function showComments(list) {
   commentsContainer.appendChild(fragment);
 }
 
-function createNode(comment) { 
+function createComment(comment) { 
   const photoBlock = create('div', { class: 'photo', title: comment.author.name }, [create('div', { class: 'avatar', style: `background-image: url('${comment.author.pic}')` })]);
   const commentBlock = create('div', { class: 'comment-block' },
     [
