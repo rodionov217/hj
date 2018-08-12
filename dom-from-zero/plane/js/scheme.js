@@ -10,7 +10,7 @@ const totalPax = document.getElementById('totalPax');
 const totalAdult = document.getElementById('totalAdult');
 const totalHalf = document.getElementById('totalHalf');
 const xhr = new XMLHttpRequest();
-xhr.addEventListener('load', showMap);
+xhr.addEventListener('load', showMap); 
 
 btnSeatMap.addEventListener('click', getdata);
 btnSetEmpty.disabled = true;
