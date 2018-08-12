@@ -23,7 +23,7 @@ if (navigator.mediaDevices.getUserMedia === undefined) {
 function createThumbnail(video) {
   return new Promise((done, fail) => {
     const preview = document.createElement('video');
-    preview.src = URL.createObjectURL(video);
+    preview.srcObject = video;
     preview.addEventListener('loadeddata', () => preview.currentTime = 2);
     preview.addEventListener('seeked', () => {
       const snapshot = document.createElement('canvas');
@@ -35,12 +35,44 @@ function createThumbnail(video) {
     });
   });
 }
-
+ 
 function record(app) {
   return new Promise((done, fail) => {
     app.mode = 'preparing';
+    navigator.mediaDevices
+      .getUserMedia(app.config)
+      .then(stream => done(stream));
+    done = function (stream) {
+      console.log('yay!', stream);
+      app.mode = 'recording';
+      app.preview.srcObject = stream;
+      let chunks = [];
+      app.preview.addEventListener('dataavailable', (e) => chunks
+        .push(e.data));
+      setTimeout(() => {
+        app.mode = 'sending';
+        stream.getTracks().forEach(track => track.stop())
+        app.preview.srcObject = null;
+      }, app.limit + 2000);
+      return {
+        video: new Blob(chunks),
+        frame: createThumbnail(app.preview.srcObject)
+          .then()
+      }
+    }
+
+    //done();
+  })
+}
+/*     fail = function (e) { console.log(e)}
+    
     setTimeout(() => {
       fail('Не удалось записать видео');
-    }, app.limit);
-  });
-}
+    }, app.limit); */
+document.addEventListener('DOMContentLoaded', () => { 
+  record(app)
+  .then(e => console.log(e))
+  .then()
+  .catch(e => console.log(e))
+})
+
