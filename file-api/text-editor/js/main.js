@@ -26,6 +26,7 @@ class TextEditor {
     const [ file ] = e.dataTransfer.files,
       { type, name } = file;
     if ( type !== 'text/plain' ) {
+      alert('Файл не может быть прочитан.');
       return;
     }
     this.readFile( file )
