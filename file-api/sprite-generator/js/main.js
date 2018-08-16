@@ -13,55 +13,52 @@ class   SpriteGenerator {
     this.canvas = document.createElement('canvas');
     this.ctx = this.canvas.getContext('2d');
     this.registerEvents();
-  }
+  }    
+
   registerEvents() {
-    this.uploadButton.addEventListener('input', event => {
-      Array.from(this.uploadButton.files).forEach(i => this.images.push(i));
-      this.imagesCount = this.images.length;
-      this.imagesCountContainer.textContent = this.imagesCount;
+    this.uploadButton.addEventListener('change', () => this.loadFiles());
+    this.submitButton.addEventListener('click', () => this.generate());
+  }
 
-      this.canvas.width = Math.ceil(Math.sqrt(this.imagesCount)) * 100;
-      this.canvas.height = Math.round(Math.sqrt(this.imagesCount)) * 100;
-      let x = 0, y = 0;
-      this.images.forEach((img, index) => {
-        let i = new Image(100, 100);
-        i.src = URL.createObjectURL(img);
-        i.addEventListener('load', () => {
-        if (x >= this.canvas.width) {
-            x = 0;
-            y += 100;
-          } 
-          this.ctx.drawImage(i, x, y, 100, 100);
-          x += 100;
-        });
-        });
-    });
-
-    this.submitButton.addEventListener('click', event => {
-      event.preventDefault();
-      this.imageElement.src =this.canvas.toDataURL();
-      this.imageElement.alt = 'sprite.png';
-      this.imageElement.title = 'sprite.png';
+  loadFiles() {
+    Array.from(this.uploadButton.files).forEach(file => {
+      let img = document.createElement('img');
+      img.src = URL.createObjectURL(file);
       
-      let init = `.icon {
-        background-image: url('sprite.png');
-        display: inline-block;
-      }\n`;
-      this.codeContainer.value =  init + this.images.reduce(function(prev, cur, i) {
-      cur = `.icon.icon_${i} { 
-          width: 100px;
-          height: 100px;
-          background-position: 0px 0px;
-        }\n`
-        return  prev + cur;
-      }, '');
- 
-    })
+      img.addEventListener('load', () => {
+        this.images.push(img);
+        this.imagesCount = this.images.length;
+        this.imagesCountContainer.textContent = this.imagesCount;
+
+        this.canvas.width = this.images.reduce((sum, cur) => sum + cur.width, 0)
+        let x = 0;
+        this.images.forEach((img) => {
+          if (img.height > this.canvas.height) {this.canvas.height = img.height};
+          this.ctx.drawImage(img, x, this.canvas.height - img.height);
+          x = x + img.width;
+        });
+      })
+    });
+  }
+    
+  generate() {
+    this.imageElement.src = this.canvas.toDataURL();
+    this.imageElement.style.width = window.innerWidth * 2 / 3 + 'px';
+    this.imageElement.alt = 'sprite.png';
+    
+    let init = `.icon {
+      background-image: url('sprite.png');
+      display: inline-block;
+    }\n`;
+    this.codeContainer.value = this.images.reduce(function(prev, cur, i) {
+    cur = `.icon.icon_${i} { 
+        width: ${cur.width}px;
+        height: ${cur.height}px;
+        background-position: 0px 0px;
+      }\n`
+      return  prev + cur;
+    }, init);
   }
 }
 
 new SpriteGenerator( document.getElementById( 'generator' ));
-
-
-
-
