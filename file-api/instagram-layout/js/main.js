@@ -8,26 +8,19 @@ class iLayout {
     this.actionButton = container.querySelector( '.layout__button' );
     this.result = container.querySelector( '.layout__result' );
     this.layout = {
-      left: null,
-      top: null,
-      bottom: null
+      left: document.querySelector('.layout__item_left'),
+      top: document.querySelector('.layout__item_top'),
+      bottom: document.querySelector('.layout__item_bottom')
     };
     this.canvas = document.createElement('canvas');
     this.canvas.width = this.positionsContainer.getBoundingClientRect().width;
     this.canvas.height = this.positionsContainer.getBoundingClientRect().height;
     this.ctx = this.canvas.getContext('2d');
-
+    this.files = [];
     this.registerEvents();
   }
-  registerEvents() {
-    this.positionsContainer.addEventListener('dragover', event => {
-      event.preventDefault();
-      event.target.classList.add('layout__item_active');
-    });
 
-    this.positionsContainer.addEventListener('dragleave', () => event.target.classList.remove('layout__item_active'));
-
-    this.positionsContainer.addEventListener('drop', event => {
+  load(event) {
       event.preventDefault();
       event.target.innerHTML = '';
       const file = event.dataTransfer.files[0];
@@ -37,23 +30,37 @@ class iLayout {
       event.target.appendChild(img);
       event.target.classList.remove('layout__item_active'); 
   
-      const dwidth = event.target.getBoundingClientRect().width;
-      const dheight = event.target.getBoundingClientRect().height;
+      const dwidth = event.target.clientWidth;
+      const dheight = event.target.clientHeight;
       let dx = event.target.offsetLeft, dy = 0;
-      if (event.target.classList.contains('layout__item_bottom')) {
-        dy = event.target.offsetHeight;
+      if (event.target === this.layout.bottom) {
+        dy = event.target.clientHeight - 1;
       }
-  
-      img.addEventListener('load', event => {
+
+      img.addEventListener('load', () => {
         this.ctx.drawImage(img, 0, 0, dwidth, dheight, dx, dy, dwidth, dheight);
         URL.revokeObjectURL(img.src);
       }) 
-    });
-
-    this.actionButton.addEventListener('click', event => {
+    }
+    
+    generateImg(event) {
       event.preventDefault();
       this.result.value = `<img src="${this.canvas.toDataURL()}">`;
-    })
+
+      //test
+/*    let img = document.createElement('div');
+      img.innerHTML = `<img src="${this.canvas.toDataURL()}">`;
+      document.querySelector('#layout').appendChild(img); */
+    }
+
+  registerEvents() {
+    this.positionsContainer.addEventListener('dragover', event => {
+      event.preventDefault();
+      event.target.classList.add('layout__item_active');
+    });
+    this.positionsContainer.addEventListener('dragleave', () => event.target.classList.remove('layout__item_active'));
+    this.positionsContainer.addEventListener('drop', event => this.load(event));
+    this.actionButton.addEventListener('click', event => this.generateImg(event))
   }
 }
 
