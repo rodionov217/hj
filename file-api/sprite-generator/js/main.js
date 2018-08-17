@@ -3,7 +3,6 @@ const prop = ( data, name ) => data.map( item => item[ name ]  ),
 class   SpriteGenerator {
   constructor( container ) {
     this.uploadButton = container.querySelector( '.sprite-generator__upload' );
-    this.uploadButton.accept = 'image/png';
     this.submitButton = container.querySelector( '.sprite-generator__generate' );
     this.imagesCountContainer = container.querySelector( '.images__added-count-value' );
     this.codeContainer = container.querySelector( '.sprite-generator__code' );
